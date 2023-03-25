@@ -5,6 +5,10 @@ VisualStudioVersion = 17.4.33403.182
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sponte.School", "Sponte.School\Sponte.School.csproj", "{61B4ED7A-FDE5-45E8-B01B-FCA7480A26DC}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sponte.School.Business", "Sponte.School.Business\Sponte.School.Business.csproj", "{F98847F8-18DE-4571-9C2E-E5C65AA862B6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Sponte.School.MOD", "Sponte.School.MOD\Sponte.School.MOD.csproj", "{FE8845FD-2DBC-4EB9-9471-F25CE308BA54}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{61B4ED7A-FDE5-45E8-B01B-FCA7480A26DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{61B4ED7A-FDE5-45E8-B01B-FCA7480A26DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{61B4ED7A-FDE5-45E8-B01B-FCA7480A26DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F98847F8-18DE-4571-9C2E-E5C65AA862B6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F98847F8-18DE-4571-9C2E-E5C65AA862B6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F98847F8-18DE-4571-9C2E-E5C65AA862B6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F98847F8-18DE-4571-9C2E-E5C65AA862B6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE8845FD-2DBC-4EB9-9471-F25CE308BA54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE8845FD-2DBC-4EB9-9471-F25CE308BA54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE8845FD-2DBC-4EB9-9471-F25CE308BA54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE8845FD-2DBC-4EB9-9471-F25CE308BA54}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Sponte.School.Business.Services.Interfaces;
+using Sponte.School.DataAccess.Services;
 using Sponte.School.Models;
 using System;
 using System.Collections.Generic;
@@ -9,35 +11,22 @@ using System.Threading.Tasks;
 
 namespace Sponte.School.Controllers
 {
-    [ApiController]
 	[Route("alunos")]
+	[ApiController]
 	public class AlunoController : ControllerBase
 	{
-		private readonly ILogger<AlunoController> _logger;
+		private readonly AlunoServices _alunoServices;
 
-		private List<AlunoModel> _itemsMock;
-
-		public AlunoController(ILogger<AlunoController> logger)
+		public AlunoController(AlunoServices alunoServices)
 		{
-			_logger = logger;
-
-			var rng = new Random();
-
-			_itemsMock = Enumerable.Range(1, 2).Select(index => new AlunoModel
-			{
-				Id = Guid.NewGuid().ToString().Replace("-", ""),
-				Nome = $"Aluno N°{index}",
-				Email = $"email{index}@gmail.com",
-				CPF = $"{rng.Next(0, 999):000}.{rng.Next(0, 999):000}.{rng.Next(0, 999):000}-{rng.Next(0, 99):00}",
-				DataNascimento = DateTime.Now.AddMonths(-rng.Next(5 * 12, 18 * 12)),
-				Foto = null
-			}).ToList();
+			_alunoServices = alunoServices;
 		}
 
 		[HttpGet]
 		public async Task<ActionResult> Get()
 		{
-			return StatusCode(StatusCodes.Status200OK, _itemsMock.ToArray());
+			var listaAlunos = (await _alunoServices.GetAsync()).Select(aluno => new AlunoModel(aluno)).ToList();
+			return StatusCode(StatusCodes.Status200OK, listaAlunos);
 		}
 
 		[HttpPost]
@@ -45,12 +34,11 @@ namespace Sponte.School.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				_itemsMock.Add(aluno);
-				var alunoSalvo = aluno;
-				return StatusCode(StatusCodes.Status201Created, alunoSalvo);
+				await _alunoServices.CreateAsync(aluno.ToMod());
+				return StatusCode(StatusCodes.Status201Created, aluno);
 			}
 
-			return StatusCode(StatusCodes.Status400BadRequest, null);
+			return StatusCode(StatusCodes.Status400BadRequest);
 		}
 
 		[Route("{id}")]
@@ -59,22 +47,25 @@ namespace Sponte.School.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				_itemsMock = _itemsMock.Select(item => item.Id == id ? aluno : item).ToList();
-				var alunoSalvo = aluno;
+				var alunoSalvo = new AlunoModel(await _alunoServices.UpdateAsync(id, aluno.ToMod()));
 				return StatusCode(StatusCodes.Status200OK, alunoSalvo);
 			}
 
-			return StatusCode(StatusCodes.Status400BadRequest, null);
+			return StatusCode(StatusCodes.Status400BadRequest);
 		}
 
 		[Route("{id}")]
 		[HttpDelete]
 		public async Task<ActionResult> Delete(string id)
 		{
-			_itemsMock = _itemsMock.Where(item => item.Id != id).ToList();
-			return StatusCode(StatusCodes.Status200OK);
+			bool sucesso = await _alunoServices.RemoveAsync(id);
 
-			//return StatusCode(StatusCodes.Status400BadRequest, null);
+			if (sucesso)
+			{
+				return StatusCode(StatusCodes.Status204NoContent);
+			}
+
+			return StatusCode(StatusCodes.Status400BadRequest);
 		}
 	}
 }

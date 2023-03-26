@@ -49,7 +49,7 @@ namespace Sponte.School.Models
 		{
 			if (mod != null)
 			{
-				string cpf = Convert.ToInt64(mod.CPF).ToString("000.000.000-00");
+				string cpf = Convert.ToUInt64(mod.CPF).ToString(@"000\.000\.000\-00");
 
 				Id = mod.Id;
 				Nome = mod.Nome;

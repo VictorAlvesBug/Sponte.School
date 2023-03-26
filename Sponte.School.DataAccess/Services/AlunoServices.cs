@@ -34,6 +34,7 @@ namespace Sponte.School.DataAccess.Services
 
 		public async Task<AlunoMOD> UpdateAsync(string id, AlunoMOD aluno)
         {
+            aluno.Id = id;
 			await _alunoCollection.ReplaceOneAsync(a => a.Id == id, aluno);
             return await GetAsync(id);
 

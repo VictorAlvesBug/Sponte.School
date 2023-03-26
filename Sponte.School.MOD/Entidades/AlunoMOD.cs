@@ -27,20 +27,5 @@ namespace Sponte.School.MOD.Entidades
 
 		[BsonElement("email")]
 		public string Email { get; set; }
-
-		[BsonElement("nome")]
-		public string Nome { get; set; }
-
-		[BsonElement("cpf")]
-		public string CPF { get; set; }
-
-		[BsonElement("foto")]
-		public string FotoBase64 { get; set; }
-
-		[BsonElement("dataNascimento")]
-		public DateTime DataNascimento { get; set; }
-
-		[BsonElement("email")]
-		public string Email { get; set; }
 	}
 }

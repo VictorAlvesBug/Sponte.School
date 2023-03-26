@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Sponte.School.DataAccess\Sponte.School.DataAccess.csproj" />
     <ProjectReference Include="..\Sponte.School.MOD\Sponte.School.MOD.csproj" />
   </ItemGroup>
 

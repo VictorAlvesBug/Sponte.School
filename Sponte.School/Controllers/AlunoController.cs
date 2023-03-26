@@ -15,17 +15,17 @@ namespace Sponte.School.Controllers
 	[ApiController]
 	public class AlunoController : ControllerBase
 	{
-		private readonly AlunoServices _alunoServices;
+		private readonly IAlunoBusiness _alunoBusiness;
 
-		public AlunoController(AlunoServices alunoServices)
+		public AlunoController(IAlunoBusiness alunoBusiness)
 		{
-			_alunoServices = alunoServices;
+			_alunoBusiness = alunoBusiness;
 		}
 
 		[HttpGet]
 		public async Task<ActionResult> Get()
 		{
-			var listaAlunos = (await _alunoServices.GetAsync()).Select(aluno => new AlunoModel(aluno)).ToList();
+			var listaAlunos = (await _alunoBusiness.GetAsync()).Select(aluno => new AlunoModel(aluno)).ToList();
 			return StatusCode(StatusCodes.Status200OK, listaAlunos);
 		}
 
@@ -34,8 +34,8 @@ namespace Sponte.School.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				await _alunoServices.CreateAsync(aluno.ToMod());
-				return StatusCode(StatusCodes.Status201Created, aluno);
+				var alunoSalvo = new AlunoModel(await _alunoBusiness.CreateAsync(aluno.ToMod()));
+				return StatusCode(StatusCodes.Status201Created, alunoSalvo);
 			}
 
 			return StatusCode(StatusCodes.Status400BadRequest);
@@ -47,7 +47,7 @@ namespace Sponte.School.Controllers
 		{
 			if (ModelState.IsValid)
 			{
-				var alunoSalvo = new AlunoModel(await _alunoServices.UpdateAsync(id, aluno.ToMod()));
+				var alunoSalvo = new AlunoModel(await _alunoBusiness.UpdateAsync(id, aluno.ToMod()));
 				return StatusCode(StatusCodes.Status200OK, alunoSalvo);
 			}
 
@@ -58,7 +58,7 @@ namespace Sponte.School.Controllers
 		[HttpDelete]
 		public async Task<ActionResult> Delete(string id)
 		{
-			bool sucesso = await _alunoServices.RemoveAsync(id);
+			bool sucesso = await _alunoBusiness.RemoveAsync(id);
 
 			if (sucesso)
 			{

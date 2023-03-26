@@ -7,7 +7,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Sponte.School.Business.Services;
+using Sponte.School.Business.Services.Interfaces;
 using Sponte.School.DataAccess.Services;
+using Sponte.School.DataAccess.Services.Interfaces;
 using Sponte.School.MOD.Entidades;
 using System;
 using System.Collections.Generic;
@@ -28,8 +31,11 @@ namespace Sponte.School
 		// This method gets called by the runtime. Use this method to add services to the container.
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.Configure<AlunoDatabaseSettings>(Configuration.GetSection("SponteDatabase"));
-			services.AddSingleton<AlunoServices>();
+			services.Configure<DatabaseSettings>(Configuration.GetSection("SponteDatabase"));
+
+			services.AddTransient<IAlunoBusiness, AlunoBusiness>();
+			services.AddTransient<IAlunoDataAccess, AlunoDataAccess>();
+
 			services.AddControllers();
 		}
 

@@ -4,10 +4,10 @@ using System.Text;
 
 namespace Sponte.School.MOD.Entidades
 {
-	public class AlunoDatabaseSettings
+	public class DatabaseSettings
 	{
 		public string ConnectionString { get; set; }
 		public string DatabaseName { get; set; }
-		public string AlunoCollectionName { get; set; }
+		public Dictionary<string, string> CollectionNames { get; set; }
 	}
 }

@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sponte.School.Business.Services.Interfaces
+namespace Sponte.School.DataAccess.Services.Interfaces
 {
-	public interface IAlunoBusiness
+	public interface IAlunoDataAccess
 	{
 		public Task<IEnumerable<AlunoMOD>> GetAsync();
 		public Task<AlunoMOD> GetAsync(string id);
